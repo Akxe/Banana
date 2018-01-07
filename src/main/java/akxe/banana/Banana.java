@@ -1,4 +1,4 @@
-package com.akxe.banana;
+package akxe.banana;
 
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
