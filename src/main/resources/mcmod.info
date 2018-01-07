@@ -1,0 +1,16 @@
+[
+{
+  "modid": "banana",
+  "name": "Banana",
+  "description": "Better than vanilla. All features that are compatible with vanilla servers. ",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Akxe/Banana",
+  "updateUrl": "",
+  "authorList": ["Akxe"],
+  "credits": "Mark for all those great ideas!",
+  "logoFile": "assets/banana/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
