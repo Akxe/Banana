@@ -1,0 +1,10 @@
+#CONFIG
+config.banana.common.name.enabled=Enabled
+config.banana.common.desc.enabled=Will enable or disable this part of mod all together.
+config.banana.deathInfo.name.showGhost=Show Ghost
+config.banana.deathInfo.desc.showGhost=Show ghost player (visible through walls) at your death location.
+config.banana.deathInfo.name.listItems=List items
+config.banana.deathInfo.desc.listItems=A second after death, you will see list of all retrievable items,<br>as well as list of destroyed items.
+
+#CHAT
+chat.banana.deathInfo.text=Message
