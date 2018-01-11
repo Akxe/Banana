@@ -1,10 +1,20 @@
 #CONFIG
-config.banana.common.name.enabled=Enabled
-config.banana.common.desc.enabled=Will enable or disable this part of mod all together.
-config.banana.deathInfo.name.showGhost=Show Ghost
-config.banana.deathInfo.desc.showGhost=Show ghost player (visible through walls) at your death location.
-config.banana.deathInfo.name.listItems=List items
-config.banana.deathInfo.desc.listItems=A second after death, you will see list of all retrievable items,<br>as well as list of destroyed items.
+config.banana.common.enabled.name=Enabled
+config.banana.common.enabled.desc=Will enable or disable this part of mod all together.
+config.banana.deathInfo.showGhost.name=Show Ghost
+config.banana.deathInfo.showGhost.desc=Show ghost player (visible through walls) at your death location.
+config.banana.deathInfo.listItems.name=List items
+config.banana.deathInfo.listItems.desc=A second after death, you will see list of all retrievable items,<br>as well as list of destroyed items.
+config.banana.deathInfo.messages.name=Message settings
+config.banana.deathInfo.messages.desc=What should be written to chat?
+config.banana.deathInfo.messages.options.none=Nothing
+config.banana.deathInfo.messages.options.time=Time of death
+config.banana.deathInfo.messages.options.location=Location of death
+config.banana.deathInfo.messages.options.all=All
 
 #CHAT
-chat.banana.deathInfo.text=Message
+chat.banana.deathInfo.death.both=You have died on %1 at (%2)
+chat.banana.deathInfo.death.time=You have died on %1
+chat.banana.deathInfo.death.location=You have died at (%1)
+chat.banana.deathInfo.list.noMessage=You have died.
+chat.banana.deathInfo.list.message=You have died.

@@ -1,5 +1,6 @@
 package akxe.banana;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import net.minecraft.client.Minecraft;
@@ -7,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-//import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.*;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -18,22 +19,45 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
 
+enum deathMessagesOptions {
+	NONE("config.banana.deathInfo.messages.options.none"),
+	TIME("config.banana.deathInfo.messages.options.time"),
+	LOCATION("config.banana.deathInfo.messages.options.location"),
+	ALL("config.banana.deathInfo.messages.options.all");
+	
+	
+    private final String text;
+
+    private deathMessagesOptions(final String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
+}
+
 @Config(modid = Banana.MODID, category="deathInfo")
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber
 public class DeathInfo {
 	
-	@LangKey("config.banana.common.name.enabled")
-	@Comment("config.banana.common.decs.enabled")
+	@LangKey("config.banana.common.enabled.name")
+	@Comment("config.banana.common.enabled.decs")
 	public static boolean enabled = true;
 	
-	@LangKey("config.banana.deathInfo.name.showGhost")
-	@Comment("config.banana.deathInfo.decs.showGhost")
+	@LangKey("config.banana.deathInfo.showGhost.name")
+	@Comment("config.banana.deathInfo.showGhost.decs")
 	public static boolean showGhost = true;
 	
-	@LangKey("config.banana.deathInfo.name.listItems")
-	@Comment("config.banana.deathInfo.decs.listItems")
+	@LangKey("config.banana.deathInfo.listItems.name")
+	@Comment("config.banana.deathInfo.listItems.decs")
 	public static boolean listItems = true;
+	
+	@LangKey("config.banana.deathInfo.messages.name")
+	@Comment("config.banana.deathInfo.messages.decs")
+	public static deathMessagesOptions messages = deathMessagesOptions.ALL;
     
 	@SubscribeEvent(priority = EventPriority.HIGH)
     public static void PlayerDied(LivingDropsEvent event) {
@@ -41,20 +65,36 @@ public class DeathInfo {
     	FMLClientHandler.instance().getClient();
     	EntityPlayer player = Minecraft.getMinecraft().player;
     	if(entity.getUniqueID() == player.getUniqueID()){
+    		TextComponentTranslation message = new TextComponentTranslation("");
+    		switch(messages) {
+			case ALL:
+				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.both", new SimpleDateFormat("HH:mm:ss").format(new Date()), player.getPosition()));
+				break;
+			case TIME:
+				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.time", new SimpleDateFormat("HH:mm:ss").format(new Date())));
+				break;
+			case LOCATION:
+				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.location", player.getPosition()));
+				break;
+			case NONE:
+				break;
+    		}
+
+    		System.out.println(message.getFormattedText());
+    		player.sendMessage(message);
+    		
     		if(listItems) {
+    			message = messages == deathMessagesOptions.NONE ? new TextComponentTranslation("chat.banana.deathInfo.list.noMessage") : null;
+        		
+        		//Map<String, Integer> originalDropCounts = countItems(event.getDrops());
+        		//System.out.println(originalDropCounts);
     			
+        		System.out.println("List");
     		}
     		
     		if(showGhost) {
-    			
+        		System.out.println("Ghost");
     		}
-    		
-    		//player.getName()
-    		Map<String, Integer> originalDropCounts = countItems(event.getDrops());
-
-    		System.out.println(player.getName());
-    		//System.out.println(event.getDrops());
-    		System.out.println(originalDropCounts);
 		}
     }
 
