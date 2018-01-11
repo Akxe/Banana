@@ -58,23 +58,24 @@ public class DeathInfo {
 	@LangKey("config.banana.deathInfo.messages.name")
 	@Comment("config.banana.deathInfo.messages.decs")
 	public static deathMessagesOptions messages = deathMessagesOptions.ALL;
-    
+
+@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.HIGH)
     public static void PlayerDied(LivingDropsEvent event) {
     	Entity entity = event.getEntity();
     	FMLClientHandler.instance().getClient();
     	EntityPlayer player = Minecraft.getMinecraft().player;
-    	if(entity.getUniqueID() == player.getUniqueID()){
-    		TextComponentTranslation message = new TextComponentTranslation("");
+    	if(entity.getUniqueID().equals(player.getUniqueID())){
+    		TextComponentTranslation message = null;
     		switch(messages) {
 			case ALL:
-				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.both", new SimpleDateFormat("HH:mm:ss").format(new Date()), player.getPosition()));
+				message = (new TextComponentTranslation("chat.banana.deathInfo.death.both", new SimpleDateFormat("HH:mm:ss").format(new Date()), player.getPosition()));
 				break;
 			case TIME:
-				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.time", new SimpleDateFormat("HH:mm:ss").format(new Date())));
+				message = (new TextComponentTranslation("chat.banana.deathInfo.death.time", new SimpleDateFormat("HH:mm:ss").format(new Date())));
 				break;
 			case LOCATION:
-				message.appendSibling(new TextComponentTranslation("chat.banana.deathInfo.death.location", player.getPosition()));
+				message = (new TextComponentTranslation("chat.banana.deathInfo.death.location", player.getPosition()));
 				break;
 			case NONE:
 				break;
